@@ -4,3 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+intel8080 = { path = "./intel8080" }
+space-invaders-machine = { path = "./space-invaders-machine" }
+minifb = "0.28"
+
+[workspace]
+members = [
+    "intel8080", "space-invaders-machine",
+]

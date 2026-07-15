@@ -1,10 +1,10 @@
-use crate::cpu::Cpu;
+use crate::cpu::{Cpu, CpuContext};
 use crate::instructions::*;
 
 pub struct Instruction {
     pub mnemonic: &'static str,
     pub cycles: u8,
-    pub execute: fn(&mut Cpu),
+    pub execute: fn(&mut Cpu, ctx: &mut CpuContext),
 }
 
 pub static OPCODES: [Instruction; 256] = [

@@ -1,21 +1,14 @@
-use crate::cpu::Cpu;
-mod opcodes;
-mod instructions;
-mod memory;
-mod cpu;
+use space_invaders_machine::machine::Machine;
 
 pub fn main() {
-    let mut cpu = Cpu::new();
 
-    let rom = std::fs::read("rom/invaders.rom").unwrap();
-    cpu.memory.load(&rom);
+    let mut machine = Machine::new();
+    let rom = std::fs::read("space-invaders-machine/rom/invaders.rom").unwrap();
+
+    machine.bus.load_rom(&rom);
 
     loop {
-        if cpu.halted {
-            break;
-        }
-
-        cpu.step();
+        machine.step();
     }
 }
 

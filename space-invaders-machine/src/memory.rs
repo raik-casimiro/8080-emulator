@@ -1,5 +1,5 @@
 pub struct Memory {
-    data: [u8; 0x10000],
+    pub data: [u8; 0x10000],
 }
 
 impl Memory {
