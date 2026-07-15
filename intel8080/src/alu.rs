@@ -1,4 +1,3 @@
-use crate::Bus;
 use crate::cpu::{Cpu, CpuContext};
 
 impl Cpu {

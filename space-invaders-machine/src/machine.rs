@@ -1,4 +1,4 @@
-use intel8080::{Bus, Cpu};
+use intel8080::Cpu;
 use intel8080::cpu::CpuContext;
 use crate::machine_bus::MachineBus;
 
