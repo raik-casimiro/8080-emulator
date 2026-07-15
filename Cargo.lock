@@ -514,6 +514,7 @@ name = "space-invaders-machine"
 version = "0.1.0"
 dependencies = [
  "intel8080",
+ "minifb",
 ]
 
 [[package]]

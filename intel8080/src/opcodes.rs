@@ -4,7 +4,7 @@ use crate::instructions::*;
 pub struct Instruction {
     pub mnemonic: &'static str,
     pub cycles: u8,
-    pub execute: fn(&mut Cpu, ctx: &mut CpuContext),
+    pub execute: fn(&mut Cpu, ctx: &mut CpuContext) -> u8,
 }
 
 pub static OPCODES: [Instruction; 256] = [

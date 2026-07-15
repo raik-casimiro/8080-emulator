@@ -4,7 +4,6 @@ use crate::state::CpuState;
 
 pub struct CpuContext<'a> {
     pub bus: &'a mut dyn Bus,
-    pub cycles: u64,
 }
 
 pub struct Cpu {
@@ -13,6 +12,7 @@ pub struct Cpu {
     pub sp: u16,
     pub halted: bool,
     pub enable_interrupts: bool,
+    pub debug_enabled: bool,
 }
 
 impl Cpu {
@@ -23,6 +23,7 @@ impl Cpu {
             sp: 0x2400,
             halted: false,
             enable_interrupts: false,
+            debug_enabled: false,
         }
     }
 
@@ -90,13 +91,16 @@ impl Cpu {
         println!();
     }
 
-    pub fn step(&mut self, ctx: &mut CpuContext) {
+    pub fn step(&mut self, ctx: &mut CpuContext) -> u8 {
         let opcode = self.fetch_byte(ctx);
         let instruction = &OPCODES[opcode as usize];
 
-        (instruction.execute)(self, ctx);
-        self.debug(opcode);
+        let cycles = (instruction.execute)(self, ctx);
 
-        ctx.cycles += instruction.cycles as u64;
+        if self.debug_enabled {
+            self.debug(opcode);
+        }
+
+        cycles
     }
 }

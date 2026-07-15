@@ -16,7 +16,7 @@ impl MachineBus {
         Self {
             memory: Memory::new(),
             inputs: Inputs::new(),
-            video: Video,
+            video: Video::new(),
             shift_register: ShiftRegister::new(),
         }
     }

@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 intel8080 = { path = "../intel8080" }
+minifb = "0.28"
