@@ -27,29 +27,32 @@ impl Cpu {
         }
     }
 
-    pub fn call_if(&mut self, ctx: &mut CpuContext, address: u16, condition: bool) {
+    pub fn call_if(&mut self, ctx: &mut CpuContext, address: u16, condition: bool) -> bool {
         if !condition {
-            return;
+            return false;
         }
 
         self.push_word(ctx, self.pc);
         self.pc = address;
+        true
     }
 
-    pub fn jump_if(&mut self, address: u16, condition: bool) {
+    pub fn jump_if(&mut self, address: u16, condition: bool) -> bool {
         if !condition {
-            return;
+            return false;
         }
 
         self.pc = address;
+        true
     }
 
-    pub fn return_if(&mut self, ctx: &mut CpuContext, condition: bool) {
+    pub fn return_if(&mut self, ctx: &mut CpuContext, condition: bool) -> bool {
         if !condition {
-            return;
+            return false;
         }
 
         self.pc = self.pop_word(ctx);
+        true
     }
 
     pub fn debug(&self, opcode: u8) {
