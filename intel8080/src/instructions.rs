@@ -252,9 +252,25 @@ pub fn mvi_h(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 }
 
 pub fn daa(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
-    println!("DAA not implemented");
+    let lo = cpu.state.a & 0x0F;
+
+    if cpu.state.flags.auxiliary_carry || lo > 0x09 {
+        let (result, _) = cpu.state.a.overflowing_add(0x06);
+        cpu.state.a = result;
+        cpu.state.flags.auxiliary_carry = (lo + 0x06) > 0xF;
+    }
+
+    let hi = cpu.state.a >> 4;
+
+    if cpu.state.flags.carry || hi > 0x09 {
+        let (result, overflow) = cpu.state.a.overflowing_add(0x60);
+        cpu.state.a = result;
+        cpu.state.flags.carry = overflow;
+    }
+
+    cpu.state.flags.update_szp(cpu.state.a);
     4
-}
+ }
 
 pub fn dad_h(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
     let hl: u16 = cpu.state.hl();
@@ -1327,7 +1343,7 @@ pub fn jp(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 }
 
 pub fn di(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
-    cpu.enable_interrupts = false;
+    cpu.enable_interrupts_pending = false;
     4
 }
 
@@ -1369,7 +1385,7 @@ pub fn jm(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 }
 
 pub fn ei(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
-    cpu.enable_interrupts = true;
+    cpu.enable_interrupts_pending = true;
     4
 }
 
