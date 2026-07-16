@@ -12,6 +12,7 @@ pub struct Cpu {
     pub sp: u16,
     pub halted: bool,
     pub enable_interrupts: bool,
+    pub enable_interrupts_pending: bool,
     pub debug_enabled: bool,
 }
 
@@ -23,6 +24,7 @@ impl Cpu {
             sp: 0x2400,
             halted: false,
             enable_interrupts: false,
+            enable_interrupts_pending: false,
             debug_enabled: false,
         }
     }
@@ -97,6 +99,11 @@ impl Cpu {
     pub fn step(&mut self, ctx: &mut CpuContext) -> u8 {
         let opcode = self.fetch_byte(ctx);
         let instruction = &OPCODES[opcode as usize];
+
+        if self.enable_interrupts_pending {
+            self.enable_interrupts = true;
+            self.enable_interrupts_pending = false;
+        }
 
         let cycles = (instruction.execute)(self, ctx);
 
