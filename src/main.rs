@@ -1,6 +1,4 @@
-use minifb::{Window, WindowOptions};
 use space_invaders_machine::machine::Machine;
-use space_invaders_machine::video::{SCREEN_HEIGHT, SCREEN_WIDTH};
 
 pub fn main() {
 
