@@ -40,45 +40,13 @@ impl Machine {
 
 
     pub fn handle_input(&mut self) {
-        if self.window.is_key_down(minifb::Key::F1) {
-            self.cpu.debug_enabled = true;
-        } else {
-            self.cpu.debug_enabled = false;
-        }
-
-        if self.window.is_key_down(minifb::Key::Escape) {
-            self.cpu.halted = true;
-        }
-
-        if self.window.is_key_down(minifb::Key::Space) {
-            self.bus.inputs.coin = true;
-        }  else {
-            self.bus.inputs.coin = false;
-        }
-
-        if self.window.is_key_down(minifb::Key::Enter) {
-            self.bus.inputs.start1 = true;
-        }  else {
-            self.bus.inputs.start1 = false;
-        }
-
-        if self.window.is_key_down(minifb::Key::Left) {
-            self.bus.inputs.p1_left = true;
-        }  else {
-            self.bus.inputs.p1_left = false;
-        }
-
-        if self.window.is_key_down(minifb::Key::Right) {
-            self.bus.inputs.p1_right = true;
-        } else {
-            self.bus.inputs.p1_right = false;
-        }
-
-        if self.window.is_key_down(minifb::Key::Up) {
-            self.bus.inputs.p1_shoot = true;
-        }  else {
-            self.bus.inputs.p1_shoot = false;
-        }
+        self.cpu.debug_enabled = self.window.is_key_down(minifb::Key::F1);
+        self.cpu.halted = self.window.is_key_down(minifb::Key::Escape);
+        self.bus.inputs.coin = self.window.is_key_down(minifb::Key::Space);
+        self.bus.inputs.start1 = self.window.is_key_down(minifb::Key::Enter);
+        self.bus.inputs.p1_left = self.window.is_key_down(minifb::Key::Left);
+        self.bus.inputs.p1_right = self.window.is_key_down(minifb::Key::Right);
+        self.bus.inputs.p1_shoot = self.window.is_key_down(minifb::Key::Up);
     }
 
     pub fn run_one_frame(&mut self) {
