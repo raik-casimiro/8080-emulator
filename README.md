@@ -4,7 +4,9 @@ A cycle-aware Intel 8080 emulator written in Rust capable of running the origina
 
 This project was built from scratch as a way to understand how CPUs actually work, including instruction decoding, registers, memory, interrupts, bitwise operations, and hardware emulation.
 
-![Space Invaders Screenshot](<img width="433" height="505" alt="image" src="https://github.com/user-attachments/assets/f1b69d59-32db-4662-b3ed-ec73c7f4c877" />)
+<div align="center">
+  <img width="442" height="474" alt="image" src="https://github.com/user-attachments/assets/d69ebaa7-0e0b-4828-a6f1-a204cd02c468" />
+</div>
 
 ---
 
