@@ -16,6 +16,25 @@ This project was built from scratch as a way to understand how CPUs actually wor
 cargo run --release
 ```
 
+## Key mapping
+
+### Misc
+- C - Add coin
+- F1 - Toggle debug mode (It will slow down the game, as I print for every opcode called)
+- Escape - Halt
+
+### Player 1
+- NumPad 1 - 1 Player start
+- A - Player 1 left
+- D - Player 1 right
+- W - Player 1 shoot
+
+### Player 2
+- NumPad 2 - 2 Player start
+- NumPad 4 - Player 2 left
+- NumPad 6 - Player 2 right
+- NumPad 8 - Player 2 shoot
+
 # About the experience
 
 # What Was Easier Than Expected
