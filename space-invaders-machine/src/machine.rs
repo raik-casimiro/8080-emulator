@@ -1,10 +1,13 @@
+use std::thread;
 use intel8080::Cpu;
 use intel8080::cpu::CpuContext;
 use crate::machine_bus::MachineBus;
 use minifb::{Window, WindowOptions};
 use crate::video::{SCREEN_HEIGHT, SCREEN_WIDTH};
+use std::time::{Duration, Instant};
 
 const CYCLES_PER_FRAME: u64 = 2_000_000 / 60;
+const FRAME_DURATION: Duration = Duration::from_nanos(16_666_667);
 
 pub struct Machine {
     pub cpu: Cpu,
@@ -78,11 +81,19 @@ impl Machine {
     
     pub fn run(&mut self) {
         loop {
+            let frame_start = Instant::now();
+
             if self.cpu.halted {
                 break;
             }
-            
+
         self.run_one_frame();
+
+            let elapsed = frame_start.elapsed();
+            
+            if elapsed < FRAME_DURATION {
+                thread::sleep(FRAME_DURATION - elapsed);
+            }
         }
     }
 }
