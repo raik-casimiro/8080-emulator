@@ -1,4 +1,5 @@
 use intel8080::Bus;
+use crate::audio::Audio;
 use crate::inputs::Inputs;
 use crate::memory::Memory;
 use crate::shift_register::ShiftRegister;
@@ -8,6 +9,7 @@ pub struct MachineBus {
     pub memory: Memory,
     pub inputs: Inputs,
     pub video: Video,
+    pub audio: Audio,
     pub shift_register: ShiftRegister,
 }
 
@@ -17,6 +19,7 @@ impl MachineBus {
             memory: Memory::new(),
             inputs: Inputs::new(),
             video: Video::new(),
+            audio: Audio::new(),
             shift_register: ShiftRegister::new(),
         }
     }
@@ -47,7 +50,9 @@ impl Bus for MachineBus {
     fn output(&mut self, port: u8, value: u8) {
         match port {
             2 => self.shift_register.set_offset(value),
+            3 => self.audio.write_port3(value),
             4 => self.shift_register.write(value),
+            5 => self.audio.write_port5(value),
             _ => {}
         }
     }
