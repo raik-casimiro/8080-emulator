@@ -1325,7 +1325,7 @@ pub fn rst_5(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 }
 
 pub fn rp(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
-    if cpu.return_if(ctx, cpu.state.flags.sign) { 11 } else { 5 }
+    if cpu.return_if(ctx, !cpu.state.flags.sign) { 11 } else { 5 }
 }
 
 pub fn pop_psw(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
@@ -1338,7 +1338,7 @@ pub fn pop_psw(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 
 pub fn jp(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
     let addr = cpu.fetch_word(ctx);
-    cpu.jump_if(addr, cpu.state.flags.sign);
+    cpu.jump_if(addr, !cpu.state.flags.sign);
     10
 }
 
@@ -1349,7 +1349,7 @@ pub fn di(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 
 pub fn cp(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
     let addr = cpu.fetch_word(ctx);
-    if cpu.call_if(ctx, addr, cpu.state.flags.sign) { 17 } else { 11 }
+    if cpu.call_if(ctx, addr, !cpu.state.flags.sign) { 17 } else { 11 }
 }
 
 pub fn push_psw(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
@@ -1370,7 +1370,7 @@ pub fn rst_6(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 }
 
 pub fn rm(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
-    if cpu.return_if(ctx, !cpu.state.flags.sign) { 11 } else { 5 }
+    if cpu.return_if(ctx, cpu.state.flags.sign) { 11 } else { 5 }
 }
 
 pub fn sphl(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
@@ -1380,7 +1380,7 @@ pub fn sphl(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 
 pub fn jm(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
     let addr = cpu.fetch_word(ctx);
-    cpu.jump_if(addr, !cpu.state.flags.sign);
+    cpu.jump_if(addr, cpu.state.flags.sign);
     10
 }
 
@@ -1391,7 +1391,7 @@ pub fn ei(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
 
 pub fn cm(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
     let addr = cpu.fetch_word(ctx);
-    if cpu.call_if(ctx, addr, !cpu.state.flags.sign) { 17 } else { 11 }
+    if cpu.call_if(ctx, addr, cpu.state.flags.sign) { 17 } else { 11 }
 }
 
 pub fn cpi(cpu: &mut Cpu, ctx: &mut CpuContext) -> u8 {
