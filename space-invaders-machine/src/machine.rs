@@ -49,11 +49,17 @@ impl Machine {
     fn handle_input(&mut self) {
         self.cpu.debug_enabled = self.window.is_key_down(minifb::Key::F1);
         self.cpu.halted = self.window.is_key_down(minifb::Key::Escape);
-        self.bus.inputs.coin = self.window.is_key_down(minifb::Key::Space);
-        self.bus.inputs.start1 = self.window.is_key_down(minifb::Key::Enter);
-        self.bus.inputs.p1_left = self.window.is_key_down(minifb::Key::Left);
-        self.bus.inputs.p1_right = self.window.is_key_down(minifb::Key::Right);
-        self.bus.inputs.p1_shoot = self.window.is_key_down(minifb::Key::Up);
+        self.bus.inputs.coin = self.window.is_key_down(minifb::Key::C);
+
+        self.bus.inputs.start1 = self.window.is_key_down(minifb::Key::NumPad1);
+        self.bus.inputs.p1_left = self.window.is_key_down(minifb::Key::A);
+        self.bus.inputs.p1_right = self.window.is_key_down(minifb::Key::D);
+        self.bus.inputs.p1_shoot = self.window.is_key_down(minifb::Key::W);
+
+        self.bus.inputs.start2 = self.window.is_key_down(minifb::Key::NumPad2);
+        self.bus.inputs.p2_left = self.window.is_key_down(minifb::Key::NumPad4);
+        self.bus.inputs.p2_right = self.window.is_key_down(minifb::Key::NumPad6);
+        self.bus.inputs.p2_shoot = self.window.is_key_down(minifb::Key::NumPad8);
     }
 
     fn run_one_frame(&mut self) {
