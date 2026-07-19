@@ -2,7 +2,7 @@ use std::thread;
 use intel8080::Cpu;
 use intel8080::cpu::CpuContext;
 use crate::machine_bus::MachineBus;
-use minifb::{Window, WindowOptions};
+use minifb::{Scale, ScaleMode, Window, WindowOptions};
 use crate::video::{SCREEN_HEIGHT, SCREEN_WIDTH};
 use std::time::{Duration, Instant};
 
@@ -24,7 +24,16 @@ impl Machine {
                 "Space Invaders",
                 SCREEN_WIDTH,
                 SCREEN_HEIGHT,
-                WindowOptions::default(),
+                WindowOptions {
+                    borderless: false,
+                    transparency: false,
+                    title: true,
+                    resize: true,
+                    scale: Scale::X2,
+                    scale_mode: ScaleMode::Stretch,
+                    topmost: false,
+                    none: false,
+                },
             ).unwrap()
         }
     }
@@ -90,7 +99,7 @@ impl Machine {
         self.run_one_frame();
 
             let elapsed = frame_start.elapsed();
-            
+
             if elapsed < FRAME_DURATION {
                 thread::sleep(FRAME_DURATION - elapsed);
             }
